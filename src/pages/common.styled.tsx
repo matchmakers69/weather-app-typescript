@@ -16,6 +16,7 @@ export const ContainerBackground = styled.div`
     background-size: cover;
     background-color: ${({ theme: { colors } }) => colors.darkPurple};
     background-image: url(${WatherBck});
+    padding-top: 6rem;
     
     &.warm-weather{
         background-image: url(${WarmBck});
@@ -26,6 +27,6 @@ export const ContainerBackground = styled.div`
     }
 
     @media ${device.tabletS} {
-        padding-top: 6rem;
+        padding-top: 12rem;
     }
 `

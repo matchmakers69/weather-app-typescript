@@ -17,18 +17,13 @@ const WeatherDataWrapper = styled.div`
     border-radius: 8px;
     ${BckTransparent};
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 `;
 
 const LocationHeader = styled.header`
     margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+   text-align: center;
+    width: 100%;
 `
 
 const LocationTitle = styled.h2`
@@ -52,6 +47,7 @@ const Temperature = styled.h3`
 `;
 
 const CloudsWrapper = styled.div`
+    width: 100%;
     .clouds {
         ${Text};
         display: block;
@@ -59,11 +55,20 @@ const CloudsWrapper = styled.div`
     }
 `;
 
+const ForecastContent = styled.div`
+    padding: 2rem;
+    border: 2px solid ${({ theme: { colors } }) => colors.borderGrey};
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+`
+
 export const Styled = {
     WeatherDataWrapper,
     LocationHeader,
     LocationTitle,
     Temperature,
     CloudsWrapper,
-    LocationSubtitle
+    LocationSubtitle,
+    ForecastContent
 }

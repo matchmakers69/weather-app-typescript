@@ -17,6 +17,7 @@ export const TopHeader = styled.header`
     align-items: center;
     @media ${device.tabletS} {
         position: fixed;
+        margin-bottom: 0;
     }
 `;
 
