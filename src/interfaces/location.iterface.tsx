@@ -3,7 +3,9 @@ export interface IForecastDaily {
     temp: number;
     min_temp: number;
     max_temp: number;
-    snow?: number
+    snow?: number;
+    moonrise_ts?: number;
+    valid_date: string
 }
 
 export interface ILocationForecastExtended {

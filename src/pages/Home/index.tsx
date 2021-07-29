@@ -8,6 +8,7 @@ import { Styled } from "components/weather/Forms/common.styled";
 import location from "json/locations.json"
 import { IForecast } from "interfaces/forecast.interface";
 import WeatherCurrentLocation from "components/weather/WeatherCurrentLocation";
+import Preloader from 'components/common/Preloader';
 
 const { locations } = location;
 
@@ -44,45 +45,41 @@ const Home: FC = () => {
     }
 
     const componentIsMounted = useRef(true);
-
     // We want to show som data by default that is why we load weather for London
 
-    // useEffect(() => {
-    //     const fetchCityForecast = async () => {
-    //         setLoading(true);
-    //         try {
-    //             /**
-    //             * @componentIsMounted flag will prevent from memory leaking when routes will change
-    //             */
-    //             if (componentIsMounted.current) {
-    //                 const response = await fetchCurrentWeather(locations[0]);
-    //                 // Always returns an array with 1 element - no use to set as an array
-    //                 setForecast(response[0])
-    //                 setLoading(false)
-    //             }
+    useEffect(() => {
+        const fetchCityForecast = async () => {
+            setLoading(true);
+            try {
+                /**
+                * @componentIsMounted flag will prevent from memory leaking when routes will change
+                */
+                if (componentIsMounted.current) {
+                    const response = await fetchCurrentWeather(locations[0]);
+                    // Always returns an array with 1 element - no use to set as an array
+                    setForecast(response[0])
+                    setLoading(false)
+                }
 
-    //         } catch (err) {
-    //             console.log(err)
-    //             setError(err)
-    //             setLoading(false)
-    //         }
-    //     }
+            } catch (err) {
+                console.log(err)
+                setError(err)
+                setLoading(false)
+            }
+        }
 
-    //     fetchCityForecast()
-    // }, [])
-
-
-    if (loading) {
-        return <span>Is loading</span>
-    }
+        fetchCityForecast()
+    }, []);
 
     if (error) {
         return <span>Sorry something went wrong. 429 Too Many Requests</span>
     }
 
+    if (loading) return <Preloader />;
+
     return (
         // forecast?.temp || - we need to make sure we compare same types of data (numbers here), other way would be using parseInt or Number methods
-        <ContainerBackground className={(forecast?.temp || 0) > 20 ? "warm-weather" : "cold-weather"}>
+        <ContainerBackground className={(forecast?.temp || 0) > 15 ? "warm-weather" : "cold-weather"}>
             <Grid.Container>
                 <Styled.FormPicker noValidate onSubmit={handleSubmit(onSubmit)}>
                     <Styled.SelectPositioner>

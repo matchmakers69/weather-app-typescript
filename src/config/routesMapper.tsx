@@ -1,5 +1,5 @@
 import Home from "pages/Home";
-import ForecatExtended from "pages/ForecatExtended";
+import ExtendedForecast from "pages/ExtendedForecast";
 import { constants } from "../constants";
 
 const { ROOT, FORECAST_EXTENDED } = constants.routes;
@@ -23,7 +23,7 @@ const routes: IRoute[] = [
         path: FORECAST_EXTENDED,
         name: "Forecast extended",
         exact: true,
-        component: ForecatExtended
+        component: ExtendedForecast
     },
 
 ]

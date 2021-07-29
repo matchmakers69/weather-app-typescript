@@ -24,7 +24,13 @@ const LocationHeader = styled.header`
     margin-bottom: 20px;
    text-align: center;
     width: 100%;
-`
+`;
+
+const CurrentDate = styled.span`
+    ${Text}
+    font-size: 1.8rem;
+    display: block;
+`;
 
 const LocationTitle = styled.h2`
     font-size: 3rem;
@@ -70,5 +76,6 @@ export const Styled = {
     Temperature,
     CloudsWrapper,
     LocationSubtitle,
-    ForecastContent
+    ForecastContent,
+    CurrentDate
 }

@@ -3,7 +3,7 @@ export interface IForecast {
     city_name: string;
     clouds: number;
     snow?: number;
-    datetime?: string;
+    ob_time: string;
     state_code?: string
     // ... and others not typed 
 }
