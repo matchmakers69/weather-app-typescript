@@ -8,6 +8,7 @@ import { fetchLocationWithForecasts } from "api/weather"
 import Location from "components/weather/Location";
 import location from "json/locations.json"
 import { ILocationForecastExtended } from "interfaces/location.iterface"
+import Preloader from 'components/common/Preloader';
 
 
 const { locations } = location;
@@ -16,9 +17,7 @@ type FormValues = {
     location: string
 };
 
-
-
-const ForecatExtended: FC = () => {
+const ExtendedForecast: FC = () => {
     const [loading, setLoading] = useState(false)
     const [location, setLocation] = useState<ILocationForecastExtended>();
     const [error, setError] = useState(null);
@@ -46,32 +45,37 @@ const ForecatExtended: FC = () => {
         }
     }
 
+    const componentIsMounted = useRef(true);
 
-    // useEffect(() => {
-    //     const fetchCityForecast = async () => {
-    //         setLoading(true);
-    //         try {
-    //             /**
-    //             * @componentIsMounted flag will prevent from memory leaking when routes will change
-    //             */
-    //             if (componentIsMounted.current) {
-    //                 const response = await fetchCurrentWeather(locations[0]);
-    //                 // Always returns an array with 1 element - no use to set as an array
-    //                 setForecast(response[0])
-    //                 setLoading(false)
-    //             }
+    useEffect(() => {
+        const fetchLocationWeathers = async () => {
+            setLoading(true);
+            try {
+                /**
+                * @componentIsMounted flag will prevent from memory leaking when routes will change
+                */
+                if (componentIsMounted.current) {
+                    const response = await fetchLocationWithForecasts(locations[0]);
+                    // Always returns an array with 1 element - no use to set as an array
+                    setLocation(response)
+                    setLoading(false)
+                }
 
-    //         } catch (err) {
-    //             console.log(err)
-    //             setError(err)
-    //             setLoading(false)
-    //         }
-    //     }
+            } catch (err) {
+                console.log(err)
+                setError(err)
+                setLoading(false)
+            }
+        }
 
-    //     fetchCityForecast()
-    // }, [])
+        fetchLocationWeathers()
+    }, []);
 
+    if (error) {
+        return <span>Sorry something went wrong. 429 Too Many Requests</span>
+    }
 
+    if (loading) return <Preloader />;
     return (
         <ContainerBackground className="bck-container">
             <Grid.Container>
@@ -90,4 +94,4 @@ const ForecatExtended: FC = () => {
     )
 }
 
-export default ForecatExtended
+export default ExtendedForecast
